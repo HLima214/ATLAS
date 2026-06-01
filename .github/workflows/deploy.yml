@@ -28,12 +28,12 @@ jobs:
         
     #Terceiro passo: Instalar dependências
     - name: Instalar dependencias
-      run: npm install
+      run: npm ci
 
 
     #Quarto passo: Build de produção do React
     - name: Build da aplicação
-      run: npm run build
+      run: npx vite build
 
     #Quinto passo: Login no Azure com credenciais seguras
     - name: Login no Azure
