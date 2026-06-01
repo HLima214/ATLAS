@@ -35,6 +35,9 @@ jobs:
     - name: Build da aplicação
       run: npx vite build
 
+    - name: Instalar dependências de produção
+      run: npm install --omit=dev
+
     #Quinto passo: Login no Azure com credenciais seguras
     - name: Login no Azure
       uses: azure/login@v1
