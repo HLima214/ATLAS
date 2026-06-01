@@ -1,0 +1,65 @@
+name: ATLAS - DEPLOY PARA AZURE APP SERVICE
+
+on:
+  push:
+    branches:
+      -mains
+
+
+jobs:
+  build-and-deploy:
+    name: Build e deploy
+    runs-on: ubunto-latest
+
+
+    steps:
+    #Primeiro passo: Checkout do código
+    - name: Checkout do repositório
+      uses: actions/checkout@v4
+
+
+    #Segungo passo: Checkout do código
+    - name: Configurar Node.js 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+        
+    #Terceiro passo: Instalar dependências
+    - name: Instalar dependencias
+      run: npm ci
+
+
+    #Quarto passo: Build de produção do React
+    - name: Build da aplicação
+      run: npm run build
+
+    #Quinto passo: Login no Azure com credenciais seguras
+    - name: Login no Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    #Sexto passo: Deploy no App Service
+    - name: Deploy no Azure App Service
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: ${{secrets.AZURE_WEBAPP_NAME}}
+        package: .
+
+    #Sétimo passo: Logout do Azure (boa prática de segurança)
+    - name: Logout do Azure
+      run: az logout
+      if: always()
+     
+
+    
+
+
+
+
+
+
+
+    
