@@ -3,13 +3,13 @@ name: ATLAS - DEPLOY PARA AZURE APP SERVICE
 on:
   push:
     branches:
-      -mains
+      -main
 
 
 jobs:
   build-and-deploy:
     name: Build e deploy
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
 
 
     steps:
