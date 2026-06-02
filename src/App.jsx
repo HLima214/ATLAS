@@ -85,6 +85,20 @@ const dataSources = [
 
 const riskFilters = ["Todos", "Queimada", "Deslizamento", "Enchente", "Seca"];
 
+const teamMembers = [
+  { name: "Anny Carolina Andrade Dias", rm: "RM98295" },
+  { name: "Pedro Emerici Gava", rm: "RM551043" },
+  { name: "Henrique Lima", rm: "RM551528" },
+  { name: "Pedro Menezes", rm: "RM97432" },
+];
+
+const odsInfo = {
+  number: 13,
+  title: "Ação Climática",
+  problem: "Redução de risco de desastres naturais através de monitoramento territorial preditivo",
+  description: "ATLAS é um sistema de previsão e alerta de riscos territoriais que integra dados de satélites, sensores IoT e modelos meteorológicos para antecipar eventos climáticos extremos (enchentes, deslizamentos, queimadas e secas) em comunidades brasileiras. O sistema visa proteger populações vulneráveis através da antecipação de alertas e suporte a tomadas de decisão críticas em gestão de desastres.",
+};
+
 const styles = `
 :root {
   color-scheme: dark;
@@ -631,6 +645,91 @@ button {
   padding: 0 12px 10px;
 }
 
+.team-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.team-card,
+.ods-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(13, 27, 42, 0.92);
+  padding: 14px;
+}
+
+.team-title {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 760;
+  color: var(--text);
+}
+
+.team-members {
+  display: grid;
+  gap: 8px;
+}
+
+.team-member {
+  padding: 8px;
+  border: 1px solid rgba(136, 135, 128, 0.16);
+  border-radius: 6px;
+  background: rgba(7, 17, 31, 0.45);
+  font-size: 12px;
+}
+
+.member-name {
+  font-weight: 760;
+  color: #d8fbef;
+}
+
+.member-rm {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.ods-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+  background: rgba(29, 158, 117, 0.12);
+  color: var(--teal);
+  font-weight: 760;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.ods-title {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 760;
+  color: var(--text);
+}
+
+.ods-description {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.ods-problem {
+  padding: 10px;
+  border-left: 3px solid var(--teal);
+  background: rgba(29, 158, 117, 0.08);
+  border-radius: 4px;
+  font-size: 12px;
+  color: #d8fbef;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -699,7 +798,8 @@ button {
 
   .metrics-grid,
   .peak-row,
-  .region-detail-grid {
+  .region-detail-grid,
+  .team-panel {
     grid-template-columns: 1fr;
   }
 
@@ -1169,6 +1269,32 @@ function DataSourcesPanel() {
   );
 }
 
+function TeamAndODSPanel() {
+  return (
+    <section className="team-panel">
+      <div className="team-card">
+        <h3 className="team-title">Identidade do Produto</h3>
+        <div className="team-members">
+          {teamMembers.map((member) => (
+            <div className="team-member" key={member.rm}>
+              <div className="member-name">{member.name}</div>
+              <div className="member-rm">{member.rm}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="ods-card">
+        <div className="ods-badge">ODS{odsInfo.number}</div>
+        <h3 className="ods-title">{odsInfo.title}</h3>
+        <div className="ods-description">{odsInfo.description}</div>
+        <div className="ods-problem">
+          <strong>Problema Espacial:</strong> {odsInfo.problem}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function BriefingModal({ alert, timestamp, onClose }) {
   const closeRef = useRef(null);
 
@@ -1227,6 +1353,7 @@ export default function App() {
             <DataSourcesPanel />
           </div>
         </main>
+        <TeamAndODSPanel />
       </div>
       <BriefingModal alert={briefingAlert} timestamp={timestamp} onClose={closeBriefing} />
     </>
