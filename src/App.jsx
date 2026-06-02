@@ -861,6 +861,7 @@ function Header({ timestamp, alertCount }) {
       <div className="brand">
         <div className="brand-mark"><Satellite size={21} /></div>
         <div>
+          <span style={{ fontSize: '10px', color: '#1D9E75' }}>v1.0.1</span>
           <h1>ATLAS</h1>
           <div className="tagline">Sistema Preditivo de Alertas Territoriais</div>
         </div>
