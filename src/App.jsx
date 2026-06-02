@@ -1273,7 +1273,7 @@ function TeamAndODSPanel() {
   return (
     <section className="team-panel">
       <div className="team-card">
-        <h3 className="team-title">Identidade do Produto</h3>
+        <h3 className="team-title">Equipe</h3>
         <div className="team-members">
           {teamMembers.map((member) => (
             <div className="team-member" key={member.rm}>
